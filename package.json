@@ -1,0 +1,23 @@
+{
+  "name": "e-commerce-web-application",
+  "version": "1.0.0",
+  "description": "Full-stack E-Commerce Web Application with Node.js, Express, MongoDB, and React",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": [
+    "ecommerce",
+    "fullstack",
+    "react",
+    "express",
+    "mongodb",
+    "tailwind"
+  ],
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
