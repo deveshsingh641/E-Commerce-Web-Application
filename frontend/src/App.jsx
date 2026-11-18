@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { WishlistProvider } from './context/WishlistContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
+import { WishlistDrawer } from './components/WishlistDrawer';
 import { Toast } from './components/Toast';
 
 import { CatalogPage } from './pages/CatalogPage';
@@ -93,6 +95,9 @@ function AppContent() {
       {/* Slide-over Cart Drawer */}
       <CartDrawer onProceedCheckout={handleGoToCheckout} />
 
+      {/* Slide-over Wishlist Drawer */}
+      <WishlistDrawer onSelectProduct={handleSelectProduct} />
+
       {/* Global Toast Feedback */}
       <Toast />
 
@@ -106,7 +111,9 @@ export default function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <AppContent />
+        <WishlistProvider>
+          <AppContent />
+        </WishlistProvider>
       </CartProvider>
     </AuthProvider>
   );

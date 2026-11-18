@@ -427,6 +427,8 @@ export const AdminDashboard = () => {
                 <option value="Shipped">Shipped</option>
                 <option value="Out for Delivery">Out for Delivery</option>
                 <option value="Delivered">Delivered</option>
+                <option value="Return Requested">Return Requested</option>
+                <option value="Returned">Returned</option>
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
@@ -462,6 +464,12 @@ export const AdminDashboard = () => {
                         <td className="p-3.5">
                           <p className="font-semibold text-white">{o.shippingAddress?.fullName || o.user?.name}</p>
                           <p className="text-[11px] text-slate-500">{o.shippingAddress?.city}, {o.shippingAddress?.state}</p>
+                          {o.cancelReason && (
+                            <p className="text-[10px] text-rose-400 mt-0.5">Cancel: {o.cancelReason}</p>
+                          )}
+                          {o.returnReason && (
+                            <p className="text-[10px] text-purple-400 mt-0.5">Return: {o.returnReason}</p>
+                          )}
                         </td>
                         <td className="p-3.5 text-slate-400">
                           {new Date(o.createdAt).toLocaleDateString()}
@@ -483,7 +491,13 @@ export const AdminDashboard = () => {
                             value={o.status}
                             onChange={(e) => handleUpdateOrderStatus(o._id, e.target.value)}
                             className={`text-xs font-bold px-2.5 py-1 rounded-xl border focus:outline-none cursor-pointer ${
-                              o.status === 'Delivered'
+                              o.status === 'Cancelled'
+                                ? 'bg-rose-950/80 text-rose-300 border-rose-500/40'
+                                : o.status === 'Return Requested'
+                                ? 'bg-purple-950/80 text-purple-300 border-purple-500/40'
+                                : o.status === 'Returned'
+                                ? 'bg-cyan-950/80 text-cyan-300 border-cyan-500/40'
+                                : o.status === 'Delivered'
                                 ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40'
                                 : o.status === 'Shipped' || o.status === 'Out for Delivery'
                                 ? 'bg-indigo-950/80 text-indigo-300 border-indigo-500/40'
@@ -495,6 +509,8 @@ export const AdminDashboard = () => {
                             <option value="Shipped" className="bg-slate-900 text-white">Shipped</option>
                             <option value="Out for Delivery" className="bg-slate-900 text-white">Out for Delivery</option>
                             <option value="Delivered" className="bg-slate-900 text-white">Delivered</option>
+                            <option value="Return Requested" className="bg-slate-900 text-white">Return Requested</option>
+                            <option value="Returned" className="bg-slate-900 text-white">Returned</option>
                             <option value="Cancelled" className="bg-slate-900 text-white">Cancelled</option>
                           </select>
                         </td>

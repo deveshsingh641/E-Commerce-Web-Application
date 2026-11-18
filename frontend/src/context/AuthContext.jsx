@@ -32,11 +32,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password, role = 'user') => {
+  const register = async (name, email, password, role = 'user', adminCode = '') => {
     setLoading(true);
     setAuthError(null);
     try {
-      const data = await api.register({ name, email, password, role });
+      const data = await api.register({ name, email, password, role, adminCode });
       setUser(data);
       localStorage.setItem('aura_user', JSON.stringify(data));
       return { success: true, data };

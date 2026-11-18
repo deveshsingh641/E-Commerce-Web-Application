@@ -30,15 +30,27 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = (product, qty = 1) => {
+    if (!product || (product.countInStock !== undefined && product.countInStock <= 0)) {
+      showToast(`"${product?.name || 'Product'}" is currently out of stock.`, 'error');
+      return;
+    }
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.product === product._id);
       if (existingItem) {
-        const newQty = Math.min(existingItem.qty + qty, product.countInStock || 99);
+        const availableStock = product.countInStock || 99;
+        if (existingItem.qty >= availableStock) {
+          showToast(`Maximum available stock reached for "${product.name}" (${availableStock} units).`, 'warning');
+          return prevItems;
+        }
+        const newQty = Math.min(existingItem.qty + qty, availableStock);
         showToast(`Updated "${product.name}" quantity to ${newQty}`, 'info');
         return prevItems.map((item) =>
           item.product === product._id ? { ...item, qty: newQty } : item
         );
       } else {
+        const availableStock = product.countInStock || 99;
+        const initialQty = Math.min(qty, availableStock);
         showToast(`Added "${product.name}" to your bag`, 'success');
         return [
           ...prevItems,
@@ -49,7 +61,7 @@ export const CartProvider = ({ children }) => {
             price: product.price,
             countInStock: product.countInStock,
             category: product.category,
-            qty: Math.min(qty, product.countInStock || 1),
+            qty: initialQty,
           },
         ];
       }

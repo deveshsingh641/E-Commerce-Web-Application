@@ -1,13 +1,15 @@
 {
   "name": "e-commerce-web-application",
   "version": "1.0.0",
+  "type": "module",
   "description": "Full-stack E-Commerce Web Application with Node.js, Express, MongoDB, and React",
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build",
-    "seed": "cd backend && npm run seed"
+    "seed": "cd backend && npm run seed",
+    "test": "cd backend && npm test"
   },
   "keywords": [
     "ecommerce",
@@ -18,6 +20,7 @@
     "tailwind"
   ],
   "devDependencies": {
-    "concurrently": "^10.0.5"
+    "concurrently": "^10.0.5",
+    "puppeteer-core": "^25.12.0"
   }
 }

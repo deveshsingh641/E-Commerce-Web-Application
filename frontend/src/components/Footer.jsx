@@ -32,8 +32,8 @@ export const Footer = () => {
               <RefreshCw className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-bold text-white text-sm">30-Day Money Back</h4>
-              <p className="text-slate-400 text-xs">Hassle-free returns and responsive customer support.</p>
+              <h4 className="font-bold text-white text-sm">7-Day Guarantee</h4>
+              <p className="text-slate-400 text-xs">Prepaid returns with prompt refunds or exchanges.</p>
             </div>
           </div>
         </div>

@@ -132,6 +132,20 @@ export const api = {
       body: JSON.stringify({ status }),
     }).then(handleResponse),
 
+  cancelOrder: (id, reason) =>
+    fetch(`${API_BASE}/orders/${id}/cancel`, {
+      method: 'PUT',
+      headers: getHeaders(),
+      body: JSON.stringify({ reason }),
+    }).then(handleResponse),
+
+  returnOrder: (id, returnData) =>
+    fetch(`${API_BASE}/orders/${id}/return`, {
+      method: 'PUT',
+      headers: getHeaders(),
+      body: JSON.stringify(returnData),
+    }).then(handleResponse),
+
   // Stats
   getDashboardStats: () =>
     fetch(`${API_BASE}/stats/dashboard`, {

@@ -20,6 +20,7 @@ export const AuthPage = ({ onAuthSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('user');
+  const [adminCode, setAdminCode] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ export const AuthPage = ({ onAuthSuccess }) => {
         onAuthSuccess();
       }
     } else {
-      const res = await register(name, email, password, role);
+      const res = await register(name, email, password, role, adminCode);
       if (res.success) {
         showToast(`Account created! Welcome, ${res.data.name}`, 'success');
         onAuthSuccess();
@@ -177,17 +178,38 @@ export const AuthPage = ({ onAuthSuccess }) => {
           </div>
 
           {mode === 'register' && (
-            <div className="space-y-1">
-              <label className="text-slate-400 font-medium">Account Role</label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500"
-              >
-                <option value="user">Customer (Standard User)</option>
-                <option value="admin">Administrator (Admin Portal Access)</option>
-              </select>
-            </div>
+            <>
+              <div className="space-y-1">
+                <label className="text-slate-400 font-medium">Account Role</label>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500"
+                >
+                  <option value="user">Customer (Standard User)</option>
+                  <option value="admin">Administrator (Requires Admin Secret Key)</option>
+                </select>
+              </div>
+
+              {role === 'admin' && (
+                <div className="space-y-1">
+                  <label className="text-amber-300 font-medium flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Admin Security Key
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Enter admin authorization key"
+                    value={adminCode}
+                    onChange={(e) => setAdminCode(e.target.value)}
+                    className="w-full bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                  />
+                  <p className="text-[10px] text-slate-400">
+                    Admin access is restricted. Default dev key is <code className="text-amber-300 font-mono">AURA_ADMIN_SECRET_KEY</code>.
+                  </p>
+                </div>
+              )}
+            </>
           )}
 
           <button

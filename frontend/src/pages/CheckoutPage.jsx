@@ -103,6 +103,7 @@ export const CheckoutPage = ({ onOrderPlaced, onGoBackToStore }) => {
             : paymentMethod === 'upi'
             ? 'UPI / Instant Bank Transfer'
             : 'Cash on Delivery (COD)',
+        couponCode: appliedCoupon?.code || '',
         itemsPrice,
         taxPrice,
         shippingPrice,
